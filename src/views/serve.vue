@@ -1,13 +1,13 @@
 <template>
-  <div class="p-home">
-    这是home1
+  <div class="p-serve">
+    这是服务
   </div>
 </template>
 
 <script>
 
   export default {
-    name: 'Home',
+    name: 'serve',
     data() {
       return {
 
@@ -17,7 +17,7 @@
 </script>
 
 <style lang="less" scoped>
-  .p-home {
+  .p-serve {
 
   }
 </style>
