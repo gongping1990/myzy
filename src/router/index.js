@@ -26,14 +26,15 @@ const routes = [
         name: "Home",
         component: () => import("@/views/home")
       },
-      {
-        path: "/contactUs",
-        name: "contactUs",
-        component: () => import("@/views/contactUs")
-      },
+
       {
         path: "/industryCase",
         name: "industryCase",
+        meta: [
+          {
+            name: "行业案例"
+          }
+        ],
         component: () => import("@/views/industryCase")
       },
       {
@@ -47,8 +48,52 @@ const routes = [
         component: () => import("@/views/joinUs")
       },
       {
+        path: "/honor",
+        name: "honor ",
+        meta: [
+          {
+            name: "关于我们"
+          },
+          {
+            name: '资质荣誉'
+          }
+        ],
+        component: () => import("@/views/honor")
+      },
+      {
+        path: "/contact",
+        name: "contact",
+        meta: [
+          {
+            name: "关于我们"
+          },
+          {
+            name: '联系我们'
+          }
+        ],
+        component: () => import("@/views/contactUs")
+      },
+      {
+        path: "/about",
+        name: "about",
+        meta: [
+          {
+            name: "关于我们"
+          },
+          {
+            name: '公司介绍'
+          }
+        ],
+        component: () => import("@/views/about")
+      },
+      {
         path: "/serve",
         name: "serve",
+        meta: [
+          {
+            name: "服务"
+          }
+        ],
         component: () => import("@/views/serve")
       }
     ]

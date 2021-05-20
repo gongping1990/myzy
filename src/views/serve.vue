@@ -1,17 +1,64 @@
 <template>
   <div class="p-serve">
-    这是服务
+    <img class="p-serve-topImg" src="../assets/image/join/top-banner1.png"/>
+    <div>
+      <breadcrumb-tem class="p-serve-bread"></breadcrumb-tem>
+      <div class="p-serve-content">
+        <div class="-content-item" v-for="(item, index) of dataList" :key="index">
+          <label-tem class="-content-label" :prop-text="item.title"></label-tem>
+          <div class="-content-des" :class="{'-second': index%2 === 0}">
+            <img class="-content-img" :src="item.imgUrl"/>
+            <div class="-content-text">
+              {{item.content}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 
+  import BreadcrumbTem from "../components/breadcrumbTem";
+  import LabelTem from "../components/labelTem";
+
   export default {
     name: 'serve',
+    components: {LabelTem, BreadcrumbTem},
     data() {
       return {
-
+        dataList: [
+          {
+            imgUrl: '',
+            title: '审计',
+            content: '良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人才，形成了完善、强大的技术支持体系良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人才，形成了完善、强大的技术支持体系良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人才，形成了完善、强大的技术支持体系良好的技术支持体系是保质保量完成项目的关键因素之一，\n' +
+                '我公司自成立以来已吸纳多个行业领域的高端技术人才，形成了完善、强大的技术支持体系良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人才，形成了完善、强大的技术支持体系良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人才，形成了完善、强大的技术支持体系良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人才，形成了完善、强大的技术支持体系良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人才，形成了完善、强大的技术支持体系良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人.\n' +
+                '体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人才，形成了完善、强大的技术支持体系良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人才，形成了完善、强大的技术支持体系良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人才，形成了完善、强大的技术支持体系'
+          },
+          {
+            imgUrl: '',
+            title: '评估',
+            content: '文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案'
+          },
+          {
+            imgUrl: '',
+            title: '科研',
+            content: '文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案'
+          },
+          {
+            imgUrl: '',
+            title: '培训',
+            content: '文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案'
+          }
+        ],
+        activeNames: '0',
       }
+    },
+    methods: {
+      handleChange() {
+
+      },
     }
   }
 </script>
@@ -19,5 +66,54 @@
 <style lang="less" scoped>
   .p-serve {
 
+    &-topImg {
+      width: 100%;
+    }
+
+    &-bread {
+      display: flex;
+      align-items: center;
+      padding: 0 330px;
+      height: 55px;
+    }
+
+    &-content {
+      text-align: left;
+      /*background-color: #EDF1F2;*/
+      padding: 0 330px;
+      margin-bottom: 49px;
+
+      .-content-label {
+        padding: 10px 0 19px;
+      }
+
+      .-content-item {
+          margin-bottom: 20px;
+      }
+
+      .-content-des {
+        display: flex;
+        justify-content: space-between;
+
+        &.-second {
+          flex-flow: row-reverse;
+        }
+      }
+
+      .-content-text {
+        width: 661px;
+        text-align: left;
+        font-size: 14px;
+        font-weight: 400;
+        color: #999999;
+        line-height: 20px;
+      }
+
+      .-content-img {
+        width: 500px;
+        height: 300px;
+        border: 1px solid #D8D8D8;
+      }
+    }
   }
 </style>

@@ -1,8 +1,13 @@
 <template>
-  <div>
+  <div class="p-breadcrumb">
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>{{routerInfo[0].name}}</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/home' }">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-zhuye"></use>
+        </svg>
+        首页
+      </el-breadcrumb-item>
+      <el-breadcrumb-item v-for="(item, index) of routerInfo" :key="index">{{item.name}}</el-breadcrumb-item>
     </el-breadcrumb>
   </div>
 </template>
@@ -12,15 +17,23 @@
     name: "breadcrumbTem",
     data() {
       return {
-        routerInfo: [{name:''}]
+        routerInfo: []
       }
     },
-    mounted () {
+    mounted() {
       this.routerInfo = this.$route.meta
     }
   }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+  .p-breadcrumb {
 
+    .icon {
+      transform: translateY(-1px);
+      font-size: 18px;
+      margin-right: 9px;
+      color: #AEAEAE;
+    }
+  }
 </style>

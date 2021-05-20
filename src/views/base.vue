@@ -25,15 +25,16 @@
         <div class="-header-down-right">
           <div class="-list" v-for="(list, index) of dataList" :key="index"
                :class="{'-active': dataItem.id === list.id}" @click="changeDropdown(list)">
-            <el-dropdown @command="changeTabs" trigger="click">
+            <el-dropdown @command="changeTabs" trigger="click" v-if="list.list.length">
               <div class="el-dropdown-link">
-                {{list.title}}<i v-if="list.list.length" class="el-icon-arrow-down el-icon--right"></i>
+                {{list.title}}<i class="el-icon-arrow-down el-icon--right"></i>
               </div>
-              <el-dropdown-menu slot="dropdown" v-if="list.list.length">
+              <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item :command="item" v-for="(item,index1) of list.list" :key="index1">{{item.title}}
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
+            <div v-else>{{list.title}}</div>
           </div>
         </div>
 
@@ -59,49 +60,14 @@
           {
             id: '1',
             title: '服务',
-            list: [
-              {
-                id: '1-1',
-                title: '内容',
-                path: ''
-              },
-              {
-                id: '1-2',
-                title: '内容',
-                path: ''
-              },
-              {
-                id: '1-3',
-                title: '内容',
-                path: ''
-              },
-              {
-                id: '1-4',
-                title: '内容',
-                path: ''
-              },
-              {
-                id: '1-5',
-                title: '内容',
-                path: ''
-              }
-            ]
+            path: 'serve',
+            list: []
           },
           {
             id: '2',
             title: '行业方案',
-            list: [
-              {
-                id: '2-1',
-                title: '企业新闻',
-                path: ''
-              },
-              {
-                id: '2-2',
-                title: '行业动态',
-                path: ''
-              }
-            ]
+            path: 'industryCase',
+            list: []
           },
           {
             id: '3',
@@ -135,37 +101,26 @@
             title: '关于我们',
             list: [
               {
-                id: '5-1',
-                title: '企业新闻',
-                path: ''
+                id: '1',
+                title: '公司介绍',
+                path: '/about'
               },
               {
-                id: '5-2',
-                title: '行业动态',
-                path: ''
+                id: '2',
+                title: '董事长寄语',
+                path: '/about'
               },
               {
-                id: '5-3',
-                title: '荣誉纸质',
-                path: ''
+                id: '3',
+                title: '荣誉资质',
+                path: '/honor'
               },
               {
-                id: '5-4',
-                title: '公司环境',
-                path: ''
+                id: '4',
+                title: '联系我们',
+                path: '/contactUs'
               }
             ]
-          },
-        ],
-        bannerList: [
-          {
-            img: require('../assets/image/home/banner1.jpg')
-          },
-          {
-            img: require('../assets/image/home/banner2.jpg')
-          },
-          {
-            img: require('../assets/image/home/banner3.jpg')
           },
         ],
         dataItem: ''
@@ -182,7 +137,8 @@
     },
     methods: {
       changeTabs(data) {
-        console.log(data)
+        console.log(data,1)
+        this.$router.push(`${data.path}?id=${data.id}`)
       },
       changeDropdown(data) {
         this.dataItem = data
@@ -194,13 +150,7 @@
     }
   }
 </script>
-<style lang="less">
-  .p-base {
-    .el-carousel__container {
-      height: 451px !important;
-    }
-  }
-</style>
+
 <style lang="less" scoped>
   .p-base {
     min-width: 1366px;

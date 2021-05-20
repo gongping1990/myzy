@@ -14,6 +14,7 @@
 <style lang="less" scoped>
   .p-labelTem {
     display: flex;
+    align-items: center;
     font-size: 20px;
     font-weight: bold;
     color: #126DE9;
