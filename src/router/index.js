@@ -14,7 +14,7 @@ VueRouter.prototype.push = function push(location) {
 const routes = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/index'
   },
   {
     path: '/',
@@ -22,11 +22,10 @@ const routes = [
     component: Base,
     children: [
       {
-        path: "/home",
-        name: "Home",
-        component: () => import("@/views/home")
+        path: "/index",
+        name: "index",
+        component: () => import("@/views/index")
       },
-
       {
         path: "/industryCase",
         name: "industryCase",
@@ -109,7 +108,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.length ===0) {  //如果未匹配到路由
-    next('/home')  //如果上级也未匹配到路由则跳转登录页面，如果上级能匹配到则转上级路由
+    next('/index')  //如果上级也未匹配到路由则跳转登录页面，如果上级能匹配到则转上级路由
   } else {
     next();    //如果匹配到正确跳转
   }

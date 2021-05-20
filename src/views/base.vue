@@ -34,7 +34,7 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-            <div v-else>{{list.title}}</div>
+            <div class="-list-title" v-else>{{list.title}}</div>
           </div>
         </div>
 
@@ -118,7 +118,7 @@
               {
                 id: '4',
                 title: '联系我们',
-                path: '/contactUs'
+                path: '/contact'
               }
             ]
           },
@@ -213,6 +213,10 @@
             cursor: pointer;
             padding: 20px 10px 0;
             border-top: 4px solid transparent;
+
+            &-title {
+              color: #606266;
+            }
 
             &:last-child {
               margin-right: 0;
