@@ -6,6 +6,56 @@
           <img class="-img" :src="item.img"/>
         </el-carousel-item>
       </el-carousel>
+
+      <div class="-search-all">
+        <div class="-search-wrap">
+          <div>
+            <p>类别</p>
+            <el-select v-model="searchInfo.valueOne" placeholder="请选择" class="-width" @change="changeSelect()">
+              <el-option
+                      v-for="item in 4"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+          <div>
+            <p>类别</p>
+            <el-select v-model="searchInfo.valueTwo" placeholder="请选择" class="-width">
+              <el-option
+                      v-for="item in 2"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+          <div>
+            <p>类别</p>
+            <el-select v-model="searchInfo.valueThree" placeholder="请选择" class="-width">
+              <el-option
+                      v-for="item in 3"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+          <div>
+            <p style="visibility: hidden">111</p>
+            <el-input
+                    class="-width"
+                    suffix-icon="el-icon-search"
+                    placeholder="请输入您要搜索的内容"
+                    v-model="searchInfo.valueInput"
+                    @change="changeSearch()"
+                    clearable>
+            </el-input>
+          </div>
+        </div>
+      </div>
+
     </div>
     <div class="p-home-c1 p-home-base">
       <p class="-b-p">CHUANYU EVALUATION</p>
@@ -78,10 +128,17 @@
     name: 'Home',
     data() {
       return {
+        searchInfo: {
+          valueOne: '',
+          valueTwo: '',
+          valueThree: '',
+          valueInput: ''
+        },
         dataItem: '',
+        selectList: [],
         bannerList: [
           {
-            img: require('../assets/image/home/banner1.png')
+            img: require('../assets/image/home/banner1.jpg')
           },
           {
             img: require('../assets/image/home/banner2.jpg')
@@ -166,29 +223,67 @@
         ]
       }
     },
-    mounted () {
+    mounted() {
       this.dataItem = this.dataFourList[0]
     },
     methods: {
       changeTab(data) {
         this.dataItem = data
+      },
+      changeSelect () {
+        console.log(2222)
+      },
+      changeSearch () {
+        console.log(11111)
       }
     }
-
   }
 </script>
 <style lang="less">
   .p-home {
     .el-carousel__container {
-      height: 600px !important;
+      height: 6rem !important;
     }
   }
 </style>
 <style lang="less" scoped>
   .p-home {
     &-swiper {
+      position: relative;
+
       .-img {
         width: 100%;
+      }
+
+      .-search-all {
+        position: absolute;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        padding: 0 330px;
+        z-index: 3;
+      }
+
+      .-search-wrap {
+        display: flex;
+        justify-content: space-between;
+        text-align: left;
+        padding: 32px 16px 51px;
+        background: rgba(0, 0, 0, 0.5);
+        width: 1200px;
+        margin: 0 auto;
+
+        p {
+          margin-bottom: 13px;
+          font-size: 14px;
+          font-weight: 400;
+          color: #FFFFFF;
+        }
+
+        .-width {
+          width: 285px;
+        }
       }
     }
 
