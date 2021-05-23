@@ -1,6 +1,6 @@
 <template>
   <div class="p-joinUs">
-    <img class="p-joinUs-topImg" src="../assets/image/join/top-banner1.png"/>
+    <top-banner-tem propDes="这个是测试文案"></top-banner-tem>
     <div>
       <breadcrumb-tem class="p-joinUs-bread"></breadcrumb-tem>
       <div class="p-joinUs-content">
@@ -52,10 +52,11 @@
 
   import BreadcrumbTem from "../components/breadcrumbTem";
   import LabelTem from "../components/labelTem";
+  import TopBannerTem from "../components/topBannerTem";
 
   export default {
     name: 'serve',
-    components: {LabelTem, BreadcrumbTem},
+    components: {TopBannerTem, LabelTem, BreadcrumbTem},
     data() {
       return {
         dataList: [

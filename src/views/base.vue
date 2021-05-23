@@ -123,7 +123,14 @@
             ]
           },
         ],
-        dataItem: ''
+        dataItem: '',
+        navObj: {
+          'index': '0',
+          'serve': '1',
+          'industryCase': '2',
+          'innovate': '3',
+          'joinUs': '4'
+        }
       }
     },
     mounted() {
@@ -133,11 +140,18 @@
         path: '/home',
         list: []
       })
-      this.dataItem = this.dataList[0]
+      let routeName = this.$route.name
+      // console.log(this.dataList)
+      if (['honor','contact','about'].indexOf(routeName) > -1) {
+        this.dataItem = this.dataList[5]
+      } else {
+        this.dataItem = this.dataList[this.navObj[routeName]]
+      }
+
+      console.log(this.$route,11111)
     },
     methods: {
       changeTabs(data) {
-        console.log(data,1)
         this.$router.push(`${data.path}?id=${data.id}`)
       },
       changeDropdown(data) {
@@ -154,6 +168,7 @@
 <style lang="less" scoped>
   .p-base {
     min-width: 1366px;
+    overflow-x: hidden;
 
     &-header {
 

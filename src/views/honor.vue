@@ -1,6 +1,6 @@
 <template>
   <div class="p-honor">
-    <img class="p-honor-topImg" src="../assets/image/join/top-banner1.png"/>
+    <top-banner-tem propDes="这个是测试文案1"></top-banner-tem>
     <nav-tab-us-tem class="p-honor-nav"></nav-tab-us-tem>
     <div class="p-honor-wrap">
       <breadcrumb-tem class="p-honor-bread"></breadcrumb-tem>
@@ -20,10 +20,11 @@
   import BreadcrumbTem from "../components/breadcrumbTem";
   import LabelTem from "../components/labelTem";
   import NavTabUsTem from "../components/navTabUsTem";
+  import TopBannerTem from "../components/topBannerTem";
 
   export default {
     name: 'serve',
-    components: {NavTabUsTem, LabelTem, BreadcrumbTem},
+    components: {TopBannerTem, NavTabUsTem, LabelTem, BreadcrumbTem},
     data() {
       return {
         dataList: [

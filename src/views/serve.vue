@@ -1,6 +1,6 @@
 <template>
   <div class="p-serve">
-    <img class="p-serve-topImg" src="../assets/image/join/top-banner1.png"/>
+    <top-banner-tem propDes="这个是测试文案3"></top-banner-tem>
     <div>
       <breadcrumb-tem class="p-serve-bread"></breadcrumb-tem>
       <div class="p-serve-content">
@@ -22,10 +22,11 @@
 
   import BreadcrumbTem from "../components/breadcrumbTem";
   import LabelTem from "../components/labelTem";
+  import TopBannerTem from "../components/topBannerTem";
 
   export default {
     name: 'serve',
-    components: {LabelTem, BreadcrumbTem},
+    components: {TopBannerTem, LabelTem, BreadcrumbTem},
     data() {
       return {
         dataList: [

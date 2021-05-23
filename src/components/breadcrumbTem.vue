@@ -31,7 +31,7 @@
 
     .icon {
       transform: translateY(-1px);
-      font-size: 18px;
+      font-size: 14px;
       margin-right: 9px;
       color: #AEAEAE;
     }

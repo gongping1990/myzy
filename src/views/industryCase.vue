@@ -1,6 +1,6 @@
 <template>
   <div class="p-industryCase">
-    <img class="p-industryCase-topImg" src="../assets/image/join/top-banner1.png"/>
+    <top-banner-tem propDes="这个是测试文案2"></top-banner-tem>
     <div>
       <breadcrumb-tem class="p-industryCase-bread"></breadcrumb-tem>
       <div class="p-industryCase-content">
@@ -45,10 +45,11 @@
 
   import BreadcrumbTem from "../components/breadcrumbTem";
   import LabelTem from "../components/labelTem";
+  import TopBannerTem from "../components/topBannerTem";
 
   export default {
     name: 'serve',
-    components: {LabelTem, BreadcrumbTem},
+    components: {TopBannerTem, LabelTem, BreadcrumbTem},
     data() {
       return {
         dataList: [

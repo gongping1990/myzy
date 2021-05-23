@@ -27,6 +27,16 @@ const routes = [
         component: () => import("@/views/index")
       },
       {
+        path: "/serve",
+        name: "serve",
+        meta: [
+          {
+            name: "服务"
+          }
+        ],
+        component: () => import("@/views/serve")
+      },
+      {
         path: "/industryCase",
         name: "industryCase",
         meta: [
@@ -35,6 +45,18 @@ const routes = [
           }
         ],
         component: () => import("@/views/industryCase")
+      },
+      {
+        path: "/innovate",
+        name: "innovate",
+        meta: [
+          {
+            isMore: true,
+            parentName: '/aboutAs',
+            name: "创新研究"
+          }
+        ],
+        component: () => import("@/views/serve")
       },
       {
         path: "/joinUs",
@@ -85,16 +107,7 @@ const routes = [
         ],
         component: () => import("@/views/about")
       },
-      {
-        path: "/serve",
-        name: "serve",
-        meta: [
-          {
-            name: "服务"
-          }
-        ],
-        component: () => import("@/views/serve")
-      }
+
     ]
   }
 ]
