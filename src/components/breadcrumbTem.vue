@@ -34,6 +34,7 @@
       font-size: 14px;
       margin-right: 9px;
       color: #AEAEAE;
+
     }
   }
 </style>
