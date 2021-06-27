@@ -75,9 +75,9 @@
       <p class="-b-title">{{dataAllList.length && dataAllList[2].dictLabel}}</p>
       <div class="-c2-wrap">
         <div class="-c2-wrap-left">
-          <img class="-left-img" src=""/>
-          <p class="-left-title">我是标题我是标题我是标题</p>
-          <div class="-left-text">4月5日集团公司召开2021年1季度工作总结会议，各分子公司分别介绍...</div>
+          <img class="-left-img" :src="dataTwoList.length && dataTwoList[0].face"/>
+          <p class="-left-title">{{dataTwoList.length && dataTwoList[0].title}}</p>
+          <div class="-left-text" v-html="dataTwoList.length && dataTwoList[0].content"></div>
         </div>
         <div class="-c2-wrap-right">
           <div class="-right-item" v-for="(item, index) of dataTwoList" :key="index">
@@ -148,38 +148,8 @@
             img: require('../assets/image/home/banner3.jpg')
           }
         ],
-        dataOneList: [
-          {
-            title: '法律咨询服务',
-            content: '良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人'
-          },
-          {
-            title: '资产评估服务',
-            content: '良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人'
-          },
-          {
-            title: '法律咨询服务',
-            content: '良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人'
-          }
-        ],
-        dataTwoList: [
-          {
-            title: '标题',
-            content: '良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人'
-          },
-          {
-            title: '标题',
-            content: '良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人'
-          },
-          {
-            title: '标题',
-            content: '良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人'
-          },
-          {
-            title: '标题',
-            content: '良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人'
-          }
-        ],
+        dataOneList: [],
+        dataTwoList: [],
         dataThreeList: [
           {
             icon: '#icon-falvzixun-copy',
@@ -203,31 +173,12 @@
             content: '良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人'
           }
         ],
-        dataFourList: [
-          {
-            title: '文案一',
-            content: '事务所还组建了由经济、会计、工程等领域具备教授级高级工程师、教授职称资格的专家、学者，以及律师组成的专家委员会，' +
-                '负责制定内部执业标准，开发服务产品，制定重大项目实施方案、评审重要项目'
-          },
-          {
-            title: '文案二',
-            content: '良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人'
-          },
-          {
-            title: '文案三',
-            content: '良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人'
-          },
-          {
-            title: '文案四',
-            content: '良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人'
-          }
-        ]
+        dataFourList: []
       }
     },
     mounted() {
       this.getDictTypes()
       this.getList()
-      this.dataItem = this.dataFourList[0]
     },
     methods: {
       getDictTypes() {
@@ -273,13 +224,10 @@
                   title: item.title,
                   content: item.content
                 })
+                this.dataItem = this.dataFourList[0]
                 break
             }
           })
-          console.log(this.dataOneList)
-          console.log(this.dataTwoList)
-          console.log(this.dataThreeList)
-          console.log(this.dataFourList)
         })
       },
       changeTab(data) {

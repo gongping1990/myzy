@@ -51,13 +51,25 @@
         ]
       }
     },
+    mounted () {
+      this.getList()
+    },
     methods: {
       handleChange() {
 
       },
       sizePage () {
 
-      }
+      },
+      getList() {
+        this.$api.com.articleList({
+          position: '2',
+          type: '6'
+        }).then(res => {
+          this.dataList = res.data
+
+        })
+      },
     }
   }
 </script>

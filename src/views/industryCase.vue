@@ -5,19 +5,19 @@
       <breadcrumb-tem class="p-industryCase-bread"></breadcrumb-tem>
       <div class="p-industryCase-content">
         <div>
-          <label-tem class="-content-label" prop-text="技术产品"></label-tem>
+          <label-tem class="-content-label" :prop-text="dataAllList.length && dataAllList[0].dictLabel"></label-tem>
           <div class="-content-itemWrap-j">
-            <div class="-content-item-j" v-for="(item, index) of dataList" :key="index">
+            <div class="-content-item-j" v-for="(item, index) of dataOneList" :key="index">
               <img class="-content-img" :src="item.imgUrl"/>
               <p class="-content-title">{{item.title}}</p>
             </div>
           </div>
         </div>
         <div>
-          <label-tem class="-content-label" prop-text="数据产品"></label-tem>
+          <label-tem class="-content-label" :prop-text="dataAllList.length && dataAllList[1].dictLabel"></label-tem>
 
           <div class="-content-itemWrap-c">
-            <div class="-content-item-c" v-for="(item, index) of dataList" :key="index">
+            <div class="-content-item-c" v-for="(item, index) of dataTwoList" :key="index">
               <img class="-content-img" :src="item.imgUrl"/>
               <div>
                 <p class="-content-title">{{item.title}}</p>
@@ -28,8 +28,8 @@
 
         </div>
         <div>
-          <label-tem class="-content-label" prop-text="解决方案"></label-tem>
-          <div class="-content-item-s" v-for="(item, index) of dataList" :key="index">
+          <label-tem class="-content-label" :prop-text="dataAllList.length && dataAllList[2].dictLabel"></label-tem>
+          <div class="-content-item-s" v-for="(item, index) of dataThreeList" :key="index">
             <p class="-content-title">{{index+1}}、{{item.title}}</p>
             <p class="-content-text">{{item.content}}</p>
             <img class="-content-img" :src="item.imgUrl"/>
@@ -52,29 +52,69 @@
     components: {TopBannerTem, LabelTem, BreadcrumbTem},
     data() {
       return {
-        dataList: [
-          {
-            imgUrl: '',
-            title: 'xxx解决方案',
-            content: '我公司自成立以来已吸纳多个行业领域的高端技术人才，形成了完善、强大的技术支持体系'
-          },
-          {
-            imgUrl: '',
-            title: '评估',
-            content: '文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案'
-          },
-          {
-            imgUrl: '',
-            title: '产品名称',
-            content: '文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案'
-          }
-        ],
+        dataAllList: [],
+        dataOneList: [],
+        dataTwoList: [],
+        dataThreeList: [],
+        dataList: [],
         activeNames: '0',
       }
     },
+    mounted() {
+      this.getDictTypes()
+    },
     methods: {
       handleChange() {
-
+      },
+      getDictTypes() {
+        this.$api.com.getDictTypes({
+          key: 'industry_position'
+        }).then(res => {
+          this.dataAllList = res.data[0].list
+          this.getList()
+        })
+      },
+      getList() {
+        this.$api.com.articleList({
+          position: '',
+          type: '2'
+        }).then(res => {
+          let storageList = res.data
+          this.dataOneList = []
+          this.dataTwoList = []
+          this.dataThreeList = []
+          this.dataList = this.dataAllList
+          this.dataList.splice(0, 1)
+          this.dataList.forEach(list => {
+            storageList.forEach(item => {
+              if (list.dictValue === item.position && item.position === '1') {
+                switch (+item.position) {
+                  case 1:
+                    this.dataOneList.push({
+                      title: item.title,
+                      content: item.content,
+                      imgurl: item.face
+                    })
+                    break
+                  case 2:
+                    this.dataTwoList.push({
+                      title: item.title,
+                      content: item.content,
+                      imgurl: item.face
+                    })
+                    break
+                  case 3:
+                    this.dataThreeList.push({
+                      title: item.title,
+                      content: item.content,
+                      imgurl: item.face
+                    })
+                    break
+                }
+              }
+            })
+          })
+        })
       },
     }
   }
@@ -123,7 +163,7 @@
           text-align: center;
           width: 380px;
           height: 44px;
-          background: rgba(0,0,0, 0.5);
+          background: rgba(0, 0, 0, 0.5);
           font-size: 16px;
           font-weight: 400;
           color: #FFFFFF;

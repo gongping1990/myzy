@@ -5,12 +5,10 @@
       <breadcrumb-tem class="p-serve-bread"></breadcrumb-tem>
       <div class="p-serve-content">
         <div class="-content-item" v-for="(item, index) of dataList" :key="index">
-          <label-tem class="-content-label" :prop-text="item.title"></label-tem>
+          <label-tem class="-content-label" :prop-text="item.dictLabel"></label-tem>
           <div class="-content-des" :class="{'-second': index%2 === 0}">
             <img class="-content-img" :src="item.imgUrl"/>
-            <div class="-content-text">
-              {{item.content}}
-            </div>
+            <div class="-content-text" v-html="item.content"></div>
           </div>
         </div>
       </div>
@@ -29,6 +27,7 @@
     components: {TopBannerTem, LabelTem, BreadcrumbTem},
     data() {
       return {
+        dataAllList: [],
         dataList: [
           {
             imgUrl: '',
@@ -56,9 +55,39 @@
         activeNames: '0',
       }
     },
+    mounted() {
+      this.getDictTypes()
+    },
     methods: {
       handleChange() {
 
+      },
+      getDictTypes() {
+        this.$api.com.getDictTypes({
+          key: 'server_position'
+        }).then(res => {
+          this.dataAllList = res.data[0].list
+          this.getList()
+        })
+      },
+      getList() {
+        this.$api.com.articleList({
+          position: '',
+          type: '2'
+        }).then(res => {
+          let storageList = res.data
+          this.dataList = this.dataAllList
+          this.dataList.splice(0,1)
+          console.log(this.dataList,1)
+          this.dataList.forEach(list=>{
+            storageList.forEach(item=>{
+              if (list.dictValue === item.position) {
+                list.content = item.content
+                list.imgurl = item.face
+              }
+            })
+          })
+        })
       },
     }
   }
@@ -89,7 +118,7 @@
       }
 
       .-content-item {
-          margin-bottom: 20px;
+        margin-bottom: 20px;
       }
 
       .-content-des {

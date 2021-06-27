@@ -3,7 +3,7 @@
     <top-banner-tem propDes="这个是测试文案"></top-banner-tem>
     <div>
       <breadcrumb-tem class="p-joinUs-bread"></breadcrumb-tem>
-      <div class="p-joinUs-content">
+      <div class="p-joinUs-content" v-if="dataList.length">
         <label-tem class="-content-label" prop-text="为什么选择川宇"></label-tem>
         <div class="-content-itemWrap">
           <div class="-content-item" v-for="(item, index) of dataList" :key="index">
@@ -59,33 +59,7 @@
     components: {TopBannerTem, LabelTem, BreadcrumbTem},
     data() {
       return {
-        dataList: [
-          {
-            imgUrl: '',
-            title: '固定工资',
-            content: '文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案'
-          },
-          {
-            imgUrl: '',
-            title: '固定工资',
-            content: '文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案'
-          },
-          {
-            imgUrl: '',
-            title: '固定工资',
-            content: '文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案'
-          },
-          {
-            imgUrl: '',
-            title: '固定工资',
-            content: '文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案'
-          },
-          {
-            imgUrl: '',
-            title: '固定工资',
-            content: '文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案'
-          }
-        ],
+        dataList: [],
         activeNames: '0',
         workList: [
           {
@@ -176,13 +150,41 @@
         ]
       }
     },
+    mounted () {
+      this.getList(1)
+      this.getList(2)
+      this.getDictTypes()
+    },
     methods: {
       handleChange() {
 
       },
       sizePage () {
 
-      }
+      },
+      getDictTypes() {
+        this.$api.com.getDictTypes({
+          key: 'jion_us_position'
+        }).then(res => {
+          this.dataAllList = res.data[0].list
+        })
+      },
+      getList(num) {
+        this.$api.com.articleList({
+          position: num,
+          type: '5'
+        }).then(res => {
+          switch (num) {
+            case 1:
+              // this.dataList = res.data
+              break
+            case 2:
+              this.workList = res.data
+              break
+          }
+
+        })
+      },
     }
   }
 </script>
