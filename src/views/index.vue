@@ -7,72 +7,72 @@
         </el-carousel-item>
       </el-carousel>
 
-      <div class="-search-all">
-        <div class="-search-wrap">
-          <div>
-            <p>类别</p>
-            <el-select v-model="searchInfo.valueOne" placeholder="请选择" class="-width" @change="changeSelect()">
-              <el-option
-                      v-for="item in 4"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-          <div>
-            <p>类别</p>
-            <el-select v-model="searchInfo.valueTwo" placeholder="请选择" class="-width">
-              <el-option
-                      v-for="item in 2"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-          <div>
-            <p>类别</p>
-            <el-select v-model="searchInfo.valueThree" placeholder="请选择" class="-width">
-              <el-option
-                      v-for="item in 3"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-          <div>
-            <p style="visibility: hidden">111</p>
-            <el-input
-                    class="-width"
-                    suffix-icon="el-icon-search"
-                    placeholder="请输入您要搜索的内容"
-                    v-model="searchInfo.valueInput"
-                    @change="changeSearch()"
-                    clearable>
-            </el-input>
-          </div>
-        </div>
-      </div>
+      <!--<div class="-search-all">-->
+      <!--<div class="-search-wrap">-->
+      <!--<div>-->
+      <!--<p>类别</p>-->
+      <!--<el-select v-model="searchInfo.valueOne" placeholder="请选择" class="-width" @change="changeSelect()">-->
+      <!--<el-option-->
+      <!--v-for="item in 4"-->
+      <!--:key="item.value"-->
+      <!--:label="item.label"-->
+      <!--:value="item.value">-->
+      <!--</el-option>-->
+      <!--</el-select>-->
+      <!--</div>-->
+      <!--<div>-->
+      <!--<p>类别</p>-->
+      <!--<el-select v-model="searchInfo.valueTwo" placeholder="请选择" class="-width">-->
+      <!--<el-option-->
+      <!--v-for="item in 2"-->
+      <!--:key="item.value"-->
+      <!--:label="item.label"-->
+      <!--:value="item.value">-->
+      <!--</el-option>-->
+      <!--</el-select>-->
+      <!--</div>-->
+      <!--<div>-->
+      <!--<p>类别</p>-->
+      <!--<el-select v-model="searchInfo.valueThree" placeholder="请选择" class="-width">-->
+      <!--<el-option-->
+      <!--v-for="item in 3"-->
+      <!--:key="item.value"-->
+      <!--:label="item.label"-->
+      <!--:value="item.value">-->
+      <!--</el-option>-->
+      <!--</el-select>-->
+      <!--</div>-->
+      <!--<div>-->
+      <!--<p style="visibility: hidden">111</p>-->
+      <!--<el-input-->
+      <!--class="-width"-->
+      <!--suffix-icon="el-icon-search"-->
+      <!--placeholder="请输入您要搜索的内容"-->
+      <!--v-model="searchInfo.valueInput"-->
+      <!--@change="changeSearch()"-->
+      <!--clearable>-->
+      <!--</el-input>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
 
     </div>
     <div class="p-home-c1 p-home-base">
-      <p class="-b-p">CHUANYU EVALUATION</p>
+      <p class="-b-p">{{dataAllList.length && dataAllList[1].remark}}</p>
       <img class="-b-img" src="../assets/image/home/fengexian.png"/>
-      <p class="-b-title">川宇房评</p>
+      <p class="-b-title">{{dataAllList.length && dataAllList[1].dictLabel}}</p>
       <div class="-c1-wrap">
         <div class="-c1-wrap-item" v-for="(item,index) of dataOneList" :key="index">
           <div class="-item-bg">0{{index+1}}.</div>
           <div class="-item-title">{{item.title}}</div>
-          <div class="-item-text">{{item.content}}</div>
+          <div class="-item-text" v-html="item.content"></div>
         </div>
       </div>
     </div>
     <div class="p-home-c2 p-home-base">
-      <p class="-b-p">CHUANYU TAX</p>
+      <p class="-b-p">{{dataAllList.length && dataAllList[2].remark}}</p>
       <img class="-b-img" src="../assets/image/home/fengexian.png"/>
-      <p class="-b-title">川宇税务</p>
+      <p class="-b-title">{{dataAllList.length && dataAllList[2].dictLabel}}</p>
       <div class="-c2-wrap">
         <div class="-c2-wrap-left">
           <img class="-left-img" src=""/>
@@ -84,30 +84,30 @@
             <div class="-index">0{{index+1}}</div>
             <div>
               <p class="-title">{{item.title}}</p>
-              <p class="-text">{{item.content}}</p>
+              <div class="-item-text" v-html="item.content"></div>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="p-home-c3 p-home-base">
-      <p class="-b-p">CHUANYU ACCOUNTING</p>
+      <p class="-b-p">{{dataAllList.length && dataAllList[3].remark}}</p>
       <img class="-b-img" src="../assets/image/home/fengexian.png"/>
-      <p class="-b-title">川宇会计</p>
+      <p class="-b-title">{{dataAllList.length && dataAllList[3].dictLabel}}</p>
       <div class="-c3-wrap">
         <div class="-c3-wrap-item" v-for="(item, index) of dataThreeList" :key="index">
           <svg class="icon" aria-hidden="true">
             <use :xlink:href="item.icon"></use>
           </svg>
           <p class="-title">{{item.title}}</p>
-          <p class="-text">{{item.content}}</p>
+          <div class="-item-text" v-html="item.content"></div>
         </div>
       </div>
     </div>
     <div class="p-home-c4 p-home-base">
-      <p class="-b-p">QIANXIN ASSETS</p>
+      <p class="-b-p">{{dataAllList.length && dataAllList[4].remark}}</p>
       <img class="-b-img" src="../assets/image/home/fengexian.png"/>
-      <p class="-b-title">谦信资产</p>
+      <p class="-b-title">{{dataAllList.length && dataAllList[4].dictLabel}}</p>
       <div class="-c4-wrap">
         <div class="-c4-wrap-flex">
           <div class="-c4-wrap-item" :class="{'-active': dataItem.title === item.title}"
@@ -136,9 +136,10 @@
         },
         dataItem: '',
         selectList: [],
+        dataAllList: [],
         bannerList: [
           {
-            img: require('../assets/image/home/banner1.jpg')
+            img: require('../assets/image/home/banner1.png')
           },
           {
             img: require('../assets/image/home/banner2.jpg')
@@ -224,16 +225,70 @@
       }
     },
     mounted() {
+      this.getDictTypes()
+      this.getList()
       this.dataItem = this.dataFourList[0]
     },
     methods: {
+      getDictTypes() {
+        this.$api.com.getDictTypes({
+          key: 'home_position'
+        }).then(res => {
+          this.dataAllList = res.data[0].list
+        })
+      },
+      getList() {
+        this.$api.com.articleList({
+          position: '',
+          type: '1'
+        }).then(res => {
+          let storageList = res.data
+          this.dataOneList = []
+          this.dataTwoList = []
+          this.dataThreeList = []
+          this.dataFourList = []
+
+          storageList.forEach(item => {
+            switch (+item.position) {
+              case 1:
+                this.dataOneList.push({
+                  title: item.title,
+                  content: item.content
+                })
+                break
+              case 2:
+                this.dataTwoList.push({
+                  title: item.title,
+                  content: item.content
+                })
+                break
+              case 3:
+                this.dataThreeList.push({
+                  title: item.title,
+                  content: item.content
+                })
+                break
+              case 4:
+                this.dataFourList.push({
+                  title: item.title,
+                  content: item.content
+                })
+                break
+            }
+          })
+          console.log(this.dataOneList)
+          console.log(this.dataTwoList)
+          console.log(this.dataThreeList)
+          console.log(this.dataFourList)
+        })
+      },
       changeTab(data) {
         this.dataItem = data
       },
-      changeSelect () {
+      changeSelect() {
         console.log(2222)
       },
-      changeSearch () {
+      changeSearch() {
         console.log(11111)
       }
     }

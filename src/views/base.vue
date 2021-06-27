@@ -57,72 +57,16 @@
     data() {
       return {
         dataList: [
-          {
-            id: '1',
-            title: '服务',
-            path: 'serve',
-            list: []
-          },
-          {
-            id: '2',
-            title: '行业方案',
-            path: 'industryCase',
-            list: []
-          },
-          {
-            id: '3',
-            title: '创新研究',
-            list: [
-              {
-                id: '3-1',
-                title: '企业新闻',
-                path: ''
-              },
-              {
-                id: '3-2',
-                title: '行业动态',
-                path: ''
-              },
-              {
-                id: '3-3',
-                title: '荣誉纸质',
-                path: ''
-              }
-            ]
-          },
-          {
-            id: '4',
-            title: '加入我们',
-            path: '/joinUs',
-            list: []
-          },
-          {
-            id: '5',
-            title: '关于我们',
-            list: [
-              {
-                id: '1',
-                title: '公司介绍',
-                path: '/about'
-              },
-              {
-                id: '2',
-                title: '董事长寄语',
-                path: '/about'
-              },
-              {
-                id: '3',
-                title: '荣誉资质',
-                path: '/honor'
-              },
-              {
-                id: '4',
-                title: '联系我们',
-                path: '/contact'
-              }
-            ]
-          },
+
         ],
+        pathUrl: {
+          '217': '/home',
+          '218': '/serve',
+          '219': '/industryCase',
+          '220': '',
+          '221': '/joinUs',
+          '222': ''
+        },
         dataItem: '',
         navObj: {
           'index': '0',
@@ -134,32 +78,65 @@
       }
     },
     mounted() {
-      this.dataList.unshift({
-        id: '0',
-        title: '首页',
-        path: '/home',
-        list: []
-      })
-      let routeName = this.$route.name
-      // console.log(this.dataList)
-      if (['honor','contact','about'].indexOf(routeName) > -1) {
-        this.dataItem = this.dataList[5]
-      } else {
-        this.dataItem = this.dataList[this.navObj[routeName]]
-      }
+      this.getDictTypes()
 
-      console.log(this.$route,11111)
+      // console.log(this.$route,11111)
     },
     methods: {
       changeTabs(data) {
         this.$router.push(`${data.path}?id=${data.id}`)
       },
+      getDictTypes() {
+        this.$api.com.getDictTypes({
+          key: 'sys_article'
+        }).then(res => {
+          let routeName = this.$route.name
+          let storageData = res.data[0].list
+          let aboutList = [
+            {
+              id: '1',
+              title: '公司介绍',
+              path: '/about'
+            },
+            {
+              id: '2',
+              title: '董事长寄语',
+              path: '/about'
+            },
+            {
+              id: '3',
+              title: '荣誉资质',
+              path: '/honor'
+            },
+            {
+              id: '4',
+              title: '联系我们',
+              path: '/contact'
+            }
+          ]
+          storageData.forEach(item => {
+            this.dataList.push({
+              id: +item.dictValue - 1,
+              title: item.dictLabel,
+              path: this.pathUrl[item.dictCode],
+              list: item.dictCode === 222 ? aboutList : []
+            })
+          })
+
+          if (['honor', 'contact', 'about'].indexOf(routeName) > -1) {
+            this.dataItem = this.dataList[5]
+          } else {
+            this.dataItem = this.dataList[this.navObj[routeName]]
+          }
+
+        })
+      },
       changeDropdown(data) {
         this.dataItem = data
+        console.log(this.dataItem,1)
         if (!data.list.length) {
-          this.$router.push(data.path)
+          this.$router.push(`${data.path}?id=${data.id}`)
         }
-        console.log(data)
       }
     }
   }
