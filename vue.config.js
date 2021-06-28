@@ -7,6 +7,7 @@
 
 module.exports = {
   lintOnSave: true,
+  publicPath: './',
   css: {
     loaderOptions: {
       css: {},
