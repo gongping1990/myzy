@@ -116,7 +116,7 @@
           </div>
         </div>
 
-        <div class="-c4-wrap-text">{{dataItem.content}}</div>
+        <div class="-c4-wrap-text" v-html="dataItem.content"></div>
       </div>
     </div>
   </div>
@@ -137,17 +137,7 @@
         dataItem: '',
         selectList: [],
         dataAllList: [],
-        bannerList: [
-          {
-            img: require('../assets/image/home/banner1.png')
-          },
-          {
-            img: require('../assets/image/home/banner2.jpg')
-          },
-          {
-            img: require('../assets/image/home/banner3.jpg')
-          }
-        ],
+        bannerList: [],
         dataOneList: [],
         dataTwoList: [],
         dataThreeList: [
@@ -201,6 +191,22 @@
 
           storageList.forEach(item => {
             switch (+item.position) {
+              case 0:
+                if (item.face) {
+                  let bannerList = item.face.split(',')
+                  bannerList.forEach(list => {
+                    this.bannerList.push({
+                      img: `${this.$store.state.baseImgUrl}${list}`
+                    })
+                  })
+                } else {
+                  this.bannerList = [
+                    {
+                      img: require('../assets/image/home/banner1.png')
+                    }
+                  ]
+                }
+                break
               case 1:
                 this.dataOneList.push({
                   title: item.title,
@@ -492,7 +498,7 @@
 
         &-flex {
           display: flex;
-          justify-content: space-between;
+          /*justify-content: space-between;*/
         }
 
         &-item {

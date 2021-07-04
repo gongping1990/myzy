@@ -4,7 +4,7 @@
     <div>
       <breadcrumb-tem class="p-joinUs-bread"></breadcrumb-tem>
       <div class="p-joinUs-content" v-if="dataList.length">
-        <label-tem class="-content-label" prop-text="为什么选择川宇"></label-tem>
+        <label-tem class="-content-label" :prop-text="dataAllList.length && dataAllList[2].dictLabel"></label-tem>
         <div class="-content-itemWrap">
           <div class="-content-item" v-for="(item, index) of dataList" :key="index">
             <div class="-img"></div>
@@ -15,7 +15,7 @@
       </div>
 
       <div class="p-joinUs-down">
-        <label-tem class="-down-label" prop-text="在招岗位"></label-tem>
+        <label-tem class="-down-label" :prop-text="dataAllList.length && dataAllList[1].dictLabel"></label-tem>
         <el-collapse class="-down-collapse" v-model="activeNames">
           <el-collapse-item :name="item.id" v-for="(item, index) of workList" :key="index">
             <template slot="title">
@@ -59,6 +59,7 @@
     components: {TopBannerTem, LabelTem, BreadcrumbTem},
     data() {
       return {
+        dataAllList: [],
         dataList: [],
         activeNames: '0',
         workList: [
@@ -151,8 +152,7 @@
       }
     },
     mounted () {
-      this.getList(1)
-      this.getList(2)
+      this.getList()
       this.getDictTypes()
     },
     methods: {
@@ -174,6 +174,42 @@
           position: num,
           type: '5'
         }).then(res => {
+          let storageList = res.data
+          this.dataTwoList = []
+          this.dataThreeList = []
+          this.dataList = this.dataAllList
+          this.dataList.splice(0, 1)
+          this.dataList.forEach(list => {
+            storageList.forEach(item => {
+              if (list.dictValue === item.position) {
+                switch (+item.position) {
+                  case 1:
+                    this.workList.push({
+                      title: item.title,
+                      content: item.content,
+                      imgUrl: item.face
+                    })
+                    break
+                  case 2:
+                    this.dataTwoList.push({
+                      title: item.title,
+                      content: item.content,
+                      imgUrl: item.face
+                    })
+                    break
+                  case 3:
+                    this.dataThreeList.push({
+                      title: item.title,
+                      content: item.content,
+                      imgUrl: item.face
+                    })
+                    break
+                }
+              }
+            })
+          })
+
+
           switch (num) {
             case 1:
               // this.dataList = res.data

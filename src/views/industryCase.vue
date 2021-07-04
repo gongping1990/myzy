@@ -13,6 +13,7 @@
             </div>
           </div>
         </div>
+
         <div>
           <label-tem class="-content-label" :prop-text="dataAllList.length && dataAllList[1].dictLabel"></label-tem>
 
@@ -21,17 +22,17 @@
               <img class="-content-img" :src="item.imgUrl"/>
               <div>
                 <p class="-content-title">{{item.title}}</p>
-                <p class="-content-text">{{item.content}}</p>
+                <p class="-content-text" v-html="item.content"></p>
               </div>
             </div>
           </div>
-
         </div>
+
         <div>
           <label-tem class="-content-label" :prop-text="dataAllList.length && dataAllList[2].dictLabel"></label-tem>
           <div class="-content-item-s" v-for="(item, index) of dataThreeList" :key="index">
             <p class="-content-title">{{index+1}}、{{item.title}}</p>
-            <p class="-content-text">{{item.content}}</p>
+            <p class="-content-text" v-html="item.content"></p>
             <img class="-content-img" :src="item.imgUrl"/>
           </div>
         </div>
@@ -77,7 +78,7 @@
       getList() {
         this.$api.com.articleList({
           position: '',
-          type: '2'
+          type: '3'
         }).then(res => {
           let storageList = res.data
           this.dataOneList = []
@@ -87,27 +88,27 @@
           this.dataList.splice(0, 1)
           this.dataList.forEach(list => {
             storageList.forEach(item => {
-              if (list.dictValue === item.position && item.position === '1') {
+              if (list.dictValue === item.position) {
                 switch (+item.position) {
                   case 1:
                     this.dataOneList.push({
                       title: item.title,
                       content: item.content,
-                      imgurl: item.face
+                      imgUrl: item.face
                     })
                     break
                   case 2:
                     this.dataTwoList.push({
                       title: item.title,
                       content: item.content,
-                      imgurl: item.face
+                      imgUrl: item.face
                     })
                     break
                   case 3:
                     this.dataThreeList.push({
                       title: item.title,
                       content: item.content,
-                      imgurl: item.face
+                      imgUrl: item.face
                     })
                     break
                 }
