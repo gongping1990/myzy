@@ -16,33 +16,34 @@
 
       <div class="p-joinUs-down">
         <label-tem class="-down-label" :prop-text="dataAllList.length && dataAllList[1].dictLabel"></label-tem>
-        <el-collapse class="-down-collapse" v-model="activeNames">
-          <el-collapse-item :name="item.id" v-for="(item, index) of workList" :key="index">
-            <template slot="title">
-              <div class="-down-collapse-title">
-                <div class="-first-child">{{item.title}}<span class="-color">{{item.price}}</span></div>
+        <div class="-down-collapse" v-html=""></div>
+        <!--<el-collapse class="-down-collapse" v-model="activeNames">-->
+          <!--<el-collapse-item :name="item.id" v-for="(item, index) of workList" :key="index">-->
+            <!--<template slot="title">-->
+              <!--<div class="-down-collapse-title">-->
+                <!--<div class="-first-child">{{item.title}}<span class="-color">{{item.price}}</span></div>-->
 
-                <span>{{item.post}}</span>
-                <span>{{item.department}}</span>
-              </div>
-            </template>
-            <div class="-down-collapse-detail">
-              <div>
-                <div>
-                  <p>岗位职责：</p>
-                  <div class="-detail-text">{{item.duty}}</div>
-                </div>
-                <div class="-detail-wrap -detail-top">
-                  <p>岗位要求：</p>
-                  <div class="-detail-text">{{item.requirement}}</div>
-                </div>
-                <div class="-detail-top">投递邮箱： {{item.mailbox}}</div>
-                <div>邮件主题： {{item.theme}}</div>
-              </div>
-            </div>
-          </el-collapse-item>
-        </el-collapse>
-        <el-pagination background layout="prev, pager, next" :total="1" @size-change="sizePage"></el-pagination>
+                <!--<span>{{item.post}}</span>-->
+                <!--<span>{{item.department}}</span>-->
+              <!--</div>-->
+            <!--</template>-->
+            <!--<div class="-down-collapse-detail">-->
+              <!--<div>-->
+                <!--<div>-->
+                  <!--<p>岗位职责：</p>-->
+                  <!--<div class="-detail-text">{{item.duty}}</div>-->
+                <!--</div>-->
+                <!--<div class="-detail-wrap -detail-top">-->
+                  <!--<p>岗位要求：</p>-->
+                  <!--<div class="-detail-text">{{item.requirement}}</div>-->
+                <!--</div>-->
+                <!--<div class="-detail-top">投递邮箱： {{item.mailbox}}</div>-->
+                <!--<div>邮件主题： {{item.theme}}</div>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</el-collapse-item>-->
+        <!--</el-collapse>-->
+        <!--<el-pagination background layout="prev, pager, next" :total="1" @size-change="sizePage"></el-pagination>-->
       </div>
     </div>
   </div>
