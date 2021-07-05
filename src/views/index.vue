@@ -96,9 +96,10 @@
       <p class="-b-title">{{dataAllList.length && dataAllList[3].dictLabel}}</p>
       <div class="-c3-wrap">
         <div class="-c3-wrap-item" v-for="(item, index) of dataThreeList" :key="index">
-          <svg class="icon" aria-hidden="true">
-            <use :xlink:href="item.icon"></use>
-          </svg>
+          <!--<svg class="icon" aria-hidden="true">-->
+          <!--<use :xlink:href="item.icon"></use>-->
+          <!--</svg>-->
+          <img class="icon" :src="item.face"/>
           <p class="-title">{{item.title}}</p>
           <div class="-item-text" v-html="item.content"></div>
         </div>
@@ -126,7 +127,7 @@
 
   export default {
     name: 'Home',
-    data() {
+    data () {
       return {
         searchInfo: {
           valueOne: '',
@@ -140,45 +141,23 @@
         bannerList: [],
         dataOneList: [],
         dataTwoList: [],
-        dataThreeList: [
-          {
-            icon: '#icon-falvzixun-copy',
-            title: '专业的法律',
-            content: '事务所还组建了由经济、会计、工程等领域具备教授级高级工程师、教授职称资格的专家、学者，以及律师组成的专家委员会，' +
-                '负责制定内部执业标准，开发服务产品，制定重大项目实施方案、评审重要项目'
-          },
-          {
-            icon: '#icon-dingqipinggu',
-            title: '评估能力',
-            content: '良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人'
-          },
-          {
-            icon: '#icon-fuwu',
-            title: '优质的服务',
-            content: '良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人'
-          },
-          {
-            icon: '#icon-shouhou--copy',
-            title: '长久的售后',
-            content: '良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人'
-          }
-        ],
+        dataThreeList: [],
         dataFourList: []
       }
     },
-    mounted() {
+    mounted () {
       this.getDictTypes()
       this.getList()
     },
     methods: {
-      getDictTypes() {
+      getDictTypes () {
         this.$api.com.getDictTypes({
           key: 'home_position'
         }).then(res => {
           this.dataAllList = res.data[0].list
         })
       },
-      getList() {
+      getList () {
         this.$api.com.articleList({
           position: '',
           type: '1'
@@ -216,13 +195,15 @@
               case 2:
                 this.dataTwoList.push({
                   title: item.title,
-                  content: item.content
+                  content: item.content,
+                  face: `${this.$store.state.baseImgUrl}${item.face}`
                 })
                 break
               case 3:
                 this.dataThreeList.push({
                   title: item.title,
-                  content: item.content
+                  content: item.content,
+                  face: `${this.$store.state.baseImgUrl}${item.face}`
                 })
                 break
               case 4:
@@ -236,13 +217,13 @@
           })
         })
       },
-      changeTab(data) {
+      changeTab (data) {
         this.dataItem = data
       },
-      changeSelect() {
+      changeSelect () {
         console.log(2222)
       },
-      changeSearch() {
+      changeSearch () {
         console.log(11111)
       }
     }
@@ -395,6 +376,8 @@
             font-weight: 400;
             color: #999999;
             line-height: 20px;
+            height: 60px;
+            overflow-y: auto;
           }
         }
 
@@ -404,6 +387,7 @@
           height: 454px;
           padding: 0 6px;
           background: #FFFFFF;
+          overflow-y: auto;
 
           .-right-item {
             display: flex;
@@ -503,7 +487,8 @@
 
         &-item {
           text-align: center;
-          width: 290px;
+          margin-right: 13px;
+          width: 300px;
           height: 44px;
           line-height: 44px;
           background: #C2C2C2;
@@ -514,6 +499,10 @@
 
           &.-active {
             background-color: #126DE9;
+          }
+
+          &:last-child {
+            margin-right: 0;
           }
         }
 

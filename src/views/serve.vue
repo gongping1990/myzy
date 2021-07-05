@@ -1,13 +1,13 @@
 <template>
   <div class="p-serve">
-    <top-banner-tem propDes="这个是测试文案3"></top-banner-tem>
+    <top-banner-tem :propData="bannerInfo"></top-banner-tem>
     <div>
       <breadcrumb-tem class="p-serve-bread"></breadcrumb-tem>
       <div class="p-serve-content">
         <div class="-content-item" v-for="(item, index) of dataList" :key="index">
           <label-tem class="-content-label" :prop-text="item.dictLabel"></label-tem>
           <div class="-content-des" :class="{'-second': index%2 === 0}">
-            <img class="-content-img" :src="item.imgUrl"/>
+            <img class="-content-img" :src="item.face"/>
             <div class="-content-text" v-html="item.content"></div>
           </div>
         </div>
@@ -28,31 +28,9 @@
     data() {
       return {
         dataAllList: [],
-        dataList: [
-          {
-            imgUrl: '',
-            title: '审计',
-            content: '良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人才，形成了完善、强大的技术支持体系良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人才，形成了完善、强大的技术支持体系良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人才，形成了完善、强大的技术支持体系良好的技术支持体系是保质保量完成项目的关键因素之一，\n' +
-                '我公司自成立以来已吸纳多个行业领域的高端技术人才，形成了完善、强大的技术支持体系良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人才，形成了完善、强大的技术支持体系良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人才，形成了完善、强大的技术支持体系良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人才，形成了完善、强大的技术支持体系良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人才，形成了完善、强大的技术支持体系良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人.\n' +
-                '体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人才，形成了完善、强大的技术支持体系良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人才，形成了完善、强大的技术支持体系良好的技术支持体系是保质保量完成项目的关键因素之一，我公司自成立以来已吸纳多个行业领域的高端技术人才，形成了完善、强大的技术支持体系'
-          },
-          {
-            imgUrl: '',
-            title: '评估',
-            content: '文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案'
-          },
-          {
-            imgUrl: '',
-            title: '科研',
-            content: '文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案'
-          },
-          {
-            imgUrl: '',
-            title: '培训',
-            content: '文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案'
-          }
-        ],
+        dataList: [],
         activeNames: '0',
+        bannerInfo: ''
       }
     },
     mounted() {
@@ -75,18 +53,28 @@
           position: '',
           type: '2'
         }).then(res => {
-          let storageList = res.data
+          let storageList = res.data || []
+          let bannerItem = []
           this.dataList = this.dataAllList
           this.dataList.splice(0,1)
-          console.log(this.dataList,1)
           this.dataList.forEach(list=>{
             storageList.forEach(item=>{
               if (list.dictValue === item.position) {
                 list.content = item.content
-                list.imgurl = item.face
+                list.face = `${this.$store.state.baseImgUrl}${item.face}`
               }
             })
           })
+
+          storageList.forEach(item=>{
+            if (item.position === '0') {
+              bannerItem.push({
+                ...item,
+                face: `${this.$store.state.baseImgUrl}${item.face}`
+              })
+            }
+          })
+          this.bannerInfo = bannerItem.length ? bannerItem[0] : ''
         })
       },
     }

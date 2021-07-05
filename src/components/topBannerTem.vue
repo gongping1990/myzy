@@ -1,8 +1,8 @@
 <template>
-  <div class="p-topBanner">
+  <div class="p-topBanner" :style="{'background-image': 'url('+propData.face+')','background-size': '100%'}">
     <div class="p-topBanner-text">
-      <p class="-text-p1">-<span>{{routerInfo[0].name}}</span>-</p>
-      <p class="-text-p2">{{propDes || '暂无'}}</p>
+      <p class="-text-p1"><span>{{propData.title || routerInfo[0].name}}</span></p>
+      <p class="-text-p2" v-html="propData.content">暂无</p>
     </div>
   </div>
 </template>
@@ -10,7 +10,7 @@
 <script>
   export default {
     name: "topBannerTem",
-    props: ['propDes'],
+    props: ['propData'],
     data() {
       return {
         routerInfo: [{name: ''}]
@@ -25,7 +25,7 @@
 <style lang="less" scoped>
   .p-topBanner {
     position: relative;
-    background: url("../assets/image/join/top-banner1.png");
+    /*background: url("../assets/image/join/top-banner1.png");*/
     height: 200px;
     width: 100%;
     display: flex;
