@@ -55,7 +55,7 @@
         }).then(res => {
           let storageList = res.data || []
           let bannerItem = []
-          this.dataList = this.dataAllList
+          this.dataList = JSON.parse(JSON.stringify(this.dataAllList))
           this.dataList.splice(0,1)
           this.dataList.forEach(list=>{
             storageList.forEach(item=>{

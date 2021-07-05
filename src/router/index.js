@@ -70,7 +70,7 @@ const routes = [
       },
       {
         path: "/honor",
-        name: "honor ",
+        name: "honor",
         meta: [
           {
             name: "关于我们"

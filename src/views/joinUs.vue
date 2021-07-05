@@ -1,49 +1,24 @@
 <template>
   <div class="p-joinUs">
-    <top-banner-tem propDes="这个是测试文案"></top-banner-tem>
+    <top-banner-tem :propData="bannerInfo"></top-banner-tem>
     <div>
       <breadcrumb-tem class="p-joinUs-bread"></breadcrumb-tem>
-      <div class="p-joinUs-content" v-if="dataList.length">
-        <label-tem class="-content-label" :prop-text="dataAllList.length && dataAllList[2].dictLabel"></label-tem>
-        <div class="-content-itemWrap">
-          <div class="-content-item" v-for="(item, index) of dataList" :key="index">
-            <div class="-img"></div>
-            <div class="-title">{{item.title}}</div>
-            <div class="-text">{{item.content}}</div>
-          </div>
-        </div>
-      </div>
 
       <div class="p-joinUs-down">
         <label-tem class="-down-label" :prop-text="dataAllList.length && dataAllList[1].dictLabel"></label-tem>
-        <div class="-down-collapse" v-html=""></div>
-        <!--<el-collapse class="-down-collapse" v-model="activeNames">-->
-          <!--<el-collapse-item :name="item.id" v-for="(item, index) of workList" :key="index">-->
-            <!--<template slot="title">-->
-              <!--<div class="-down-collapse-title">-->
-                <!--<div class="-first-child">{{item.title}}<span class="-color">{{item.price}}</span></div>-->
 
-                <!--<span>{{item.post}}</span>-->
-                <!--<span>{{item.department}}</span>-->
-              <!--</div>-->
-            <!--</template>-->
-            <!--<div class="-down-collapse-detail">-->
-              <!--<div>-->
-                <!--<div>-->
-                  <!--<p>岗位职责：</p>-->
-                  <!--<div class="-detail-text">{{item.duty}}</div>-->
-                <!--</div>-->
-                <!--<div class="-detail-wrap -detail-top">-->
-                  <!--<p>岗位要求：</p>-->
-                  <!--<div class="-detail-text">{{item.requirement}}</div>-->
-                <!--</div>-->
-                <!--<div class="-detail-top">投递邮箱： {{item.mailbox}}</div>-->
-                <!--<div>邮件主题： {{item.theme}}</div>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</el-collapse-item>-->
-        <!--</el-collapse>-->
-        <!--<el-pagination background layout="prev, pager, next" :total="1" @size-change="sizePage"></el-pagination>-->
+        <el-collapse class="-down-collapse" v-model="activeNames">
+          <el-collapse-item :name="item.id" v-for="(item, index) of workList" :key="index">
+            <template slot="title">
+              <div class="-down-collapse-title">
+                <div>{{item.title}}</div>
+              </div>
+            </template>
+            <div class="-down-collapse-detail">
+              <div v-html="item.content"></div>
+            </div>
+          </el-collapse-item>
+        </el-collapse>
       </div>
     </div>
   </div>
@@ -51,134 +26,43 @@
 
 <script>
 
-  import BreadcrumbTem from "../components/breadcrumbTem";
-  import LabelTem from "../components/labelTem";
-  import TopBannerTem from "../components/topBannerTem";
+  import BreadcrumbTem from '../components/breadcrumbTem'
+  import LabelTem from '../components/labelTem'
+  import TopBannerTem from '../components/topBannerTem'
 
   export default {
     name: 'serve',
     components: {TopBannerTem, LabelTem, BreadcrumbTem},
     data() {
       return {
+        bannerInfo: '',
         dataAllList: [],
         dataList: [],
         activeNames: '0',
-        workList: [
-          {
-            id: '1',
-            title: '测试工程师',
-            price: '10k - 20k',
-            post: '技术',
-            department: '研发部',
-            requirement: '1.文案文案文案文案文案\n' +
-                '2.文案文案文案文案文案\n' +
-                '3.文案文案文案文案文案\n' +
-                '4.文案文案文案文案文案',
-            duty: '1.文案文案文案文案文案\n' +
-                '2.文案文案文案文案文案\n' +
-                '3.文案文案文案文案文案\n' +
-                '4.文案文案文案文案文案',
-            mailbox: 'xxxx@xxxx.com',
-            theme: '职位+姓名'
-          },
-          {
-            id: '2',
-            title: '测试工程师',
-            price: '10k - 20k',
-            post: '技术',
-            department: '研发部',
-            requirement: '1.文案文案文案文案文案\n' +
-                '2.文案文案文案文案文案\n' +
-                '3.文案文案文案文案文案\n' +
-                '4.文案文案文案文案文案',
-            duty: '1.文案文案文案文案文案\n' +
-                '2.文案文案文案文案文案\n' +
-                '3.文案文案文案文案文案\n' +
-                '4.文案文案文案文案文案',
-            mailbox: 'xxxx@xxxx.com',
-            theme: '职位+姓名'
-          },
-          {
-            id: '4',
-            title: '测试工程师',
-            price: '10k - 20k',
-            post: '技术',
-            department: '研发部',
-            requirement: '1.文案文案文案文案文案\n' +
-                '2.文案文案文案文案文案\n' +
-                '3.文案文案文案文案文案\n' +
-                '4.文案文案文案文案文案',
-            duty: '1.文案文案文案文案文案\n' +
-                '2.文案文案文案文案文案\n' +
-                '3.文案文案文案文案文案\n' +
-                '4.文案文案文案文案文案',
-            mailbox: 'xxxx@xxxx.com',
-            theme: '职位+姓名'
-          },
-          {
-            id: '3',
-            title: '测试工程师',
-            price: '10k - 20k',
-            post: '技术',
-            department: '研发部',
-            requirement: '1.文案文案文案文案文案\n' +
-                '2.文案文案文案文案文案\n' +
-                '3.文案文案文案文案文案\n' +
-                '4.文案文案文案文案文案',
-            duty: '1.文案文案文案文案文案\n' +
-                '2.文案文案文案文案文案\n' +
-                '3.文案文案文案文案文案\n' +
-                '4.文案文案文案文案文案',
-            mailbox: 'xxxx@xxxx.com',
-            theme: '职位+姓名'
-          },
-          {
-            id: '5',
-            title: '测试工程师',
-            price: '10k - 20k',
-            post: '技术',
-            department: '研发部',
-            requirement: '1.文案文案文案文案文案\n' +
-                '2.文案文案文案文案文案\n' +
-                '3.文案文案文案文案文案\n' +
-                '4.文案文案文案文案文案',
-            duty: '1.文案文案文案文案文案\n' +
-                '2.文案文案文案文案文案\n' +
-                '3.文案文案文案文案文案\n' +
-                '4.文案文案文案文案文案',
-            mailbox: 'xxxx@xxxx.com',
-            theme: '职位+姓名'
-          }
-        ]
+        workList: []
       }
     },
     mounted () {
-      this.getList()
       this.getDictTypes()
     },
     methods: {
-      handleChange() {
-
-      },
-      sizePage () {
-
-      },
       getDictTypes() {
         this.$api.com.getDictTypes({
           key: 'jion_us_position'
         }).then(res => {
           this.dataAllList = res.data[0].list
+          console.log(this.dataAllList, 1111)
+          this.getList()
         })
       },
-      getList(num) {
+      getList() {
         this.$api.com.articleList({
-          position: num,
+          position: '',
           type: '5'
         }).then(res => {
           let storageList = res.data
-          this.dataTwoList = []
-          this.dataThreeList = []
-          this.dataList = this.dataAllList
+          let bannerItem = []
+          this.dataList = JSON.parse(JSON.stringify(this.dataAllList))
           this.dataList.splice(0, 1)
           this.dataList.forEach(list => {
             storageList.forEach(item => {
@@ -188,21 +72,6 @@
                     this.workList.push({
                       title: item.title,
                       content: item.content,
-                      imgUrl: item.face
-                    })
-                    break
-                  case 2:
-                    this.dataTwoList.push({
-                      title: item.title,
-                      content: item.content,
-                      imgUrl: item.face
-                    })
-                    break
-                  case 3:
-                    this.dataThreeList.push({
-                      title: item.title,
-                      content: item.content,
-                      imgUrl: item.face
                     })
                     break
                 }
@@ -211,15 +80,15 @@
           })
 
 
-          switch (num) {
-            case 1:
-              // this.dataList = res.data
-              break
-            case 2:
-              this.workList = res.data
-              break
-          }
-
+          storageList.forEach(item=>{
+            if (item.position === '0') {
+              bannerItem.push({
+                ...item,
+                face: `${this.$store.state.baseImgUrl}${item.face}`
+              })
+            }
+          })
+          this.bannerInfo = bannerItem.length ? bannerItem[0] : ''
         })
       },
     }

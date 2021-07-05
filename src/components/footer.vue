@@ -4,7 +4,7 @@
       <div class="p-footer-left">
         <div class="-left-list" v-for="(list, index) of dataList" :key="index">
           <div class="-left-list-title">{{list.title}}</div>
-          <div class="-left-list-item" v-for="(item, index1) of list.list" :key="index1">
+          <div class="-left-list-item" v-for="(item, index1) of list.list" :key="index1" @click="jumpUrl(item)">
             {{item.title}}
           </div>
         </div>
@@ -25,19 +25,24 @@
       </div>
     </div>
     <div class="p-footer-down">
-     <span class="-span1">@Copyrights 2016-2020 川宇置业有限公司</span>
-     <span> 蜀ICP备20012894号-1</span>
+      <span class="-span1">@Copyrights 2016-2020 川宇置业有限公司</span>
+      <span> 蜀ICP备20012894号-1</span>
     </div>
   </div>
 </template>
 
 <script>
   export default {
-    name: "homeFooter",
+    name: 'homeFooter',
     props: ['propList'],
-    data() {
+    data () {
       return {
         dataList: this.propList
+      }
+    },
+    methods: {
+      jumpUrl (data) {
+        this.$router.push(`${data.path}?id=${data.id}`)
       }
     }
   }
@@ -74,6 +79,11 @@
           font-size: 14px;
           font-weight: 300;
           margin-bottom: 24px;
+          cursor: pointer;
+
+          &:hover {
+            color: #479AFF;
+          }
         }
 
         &:last-child {
@@ -84,7 +94,6 @@
 
     &-right {
       margin-top: 21px;
-
 
       .-right-top {
         display: flex;

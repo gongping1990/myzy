@@ -1,15 +1,15 @@
 <template>
   <div class="p-about">
-    <top-banner-tem propDes="这个是测试文案5"></top-banner-tem>
+    <top-banner-tem :propData="bannerInfo"></top-banner-tem>
     <nav-tab-us-tem class="p-about-nav"></nav-tab-us-tem>
     <div class="p-about-wrap">
       <breadcrumb-tem class="p-about-bread"></breadcrumb-tem>
       <label-tem class="-wrap-label" prop-text="公司简介"></label-tem>
       <div class="p-about-content">
-        <img class="-content-img" src=""/>
-        <div class="-content-text"></div>
+        <img class="-content-img" :src="dataInfo.face"/>
+        <div class="-content-text" v-html="dataInfo.content"></div>
       </div>
-      <label-tem class="-wrap-label" prop-text="发展历程"></label-tem>
+      <!--<label-tem class="-wrap-label" prop-text="发展历程"></label-tem>-->
     </div>
   </div>
 </template>
@@ -26,23 +26,62 @@
     components: {TopBannerTem, NavTabUsTem, LabelTem, BreadcrumbTem},
     data() {
       return {
-        dataList: []
+        bannerInfo: '',
+        dataList: [],
+        dataAllList: [],
+        dataInfo: {}
       }
     },
     mounted () {
-      this.getList()
+      this.getDictTypes()
     },
     methods: {
-      handleChange() {
-
+      getDictTypes() {
+        this.$api.com.getDictTypes({
+          key: 'about_us_position'
+        }).then(res => {
+          this.dataAllList = res.data[0].list
+          this.getList()
+        })
       },
       getList() {
         this.$api.com.articleList({
-          position: '1',
+          position: '',
           type: '6'
         }).then(res => {
-          this.dataList = res.data
+          let storageList = res.data
+          let bannerItem = []
+          this.dataList = JSON.parse(JSON.stringify(this.dataAllList))
+          this.dataList.splice(0, 1)
+          this.dataList.forEach(list => {
+            storageList.forEach(item => {
+              if (list.dictValue === item.position) {
+                switch (+item.position) {
+                  case 1:
+                    this.dataInfo = {
+                      title: item.title,
+                      content: item.content,
+                      face: `${this.$store.state.baseImgUrl}${item.face}`
+                    }
+                    break
+                  case 2:
+                    break
+                  case 3:
+                    break
+                }
+              }
+            })
+          })
 
+          storageList.forEach(item=>{
+            if (item.position === '0') {
+              bannerItem.push({
+                ...item,
+                face: `${this.$store.state.baseImgUrl}${item.face}`
+              })
+            }
+          })
+          this.bannerInfo = bannerItem.length ? bannerItem[0] : ''
         })
       },
     }

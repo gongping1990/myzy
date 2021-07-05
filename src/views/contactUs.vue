@@ -1,6 +1,6 @@
 <template>
   <div class="p-contact">
-    <top-banner-tem propDes="这个是测试文案4"></top-banner-tem>
+    <top-banner-tem :propData="bannerInfo"></top-banner-tem>
     <nav-tab-us-tem class="p-contact-nav"></nav-tab-us-tem>
     <div class="p-contact-wrap">
       <breadcrumb-tem class="p-contact-bread"></breadcrumb-tem>
@@ -17,7 +17,7 @@
             <p class="-text">{{item.address}}</p>
           </div>
         </div>
-        <img class="-content-img" src=""/>
+        <img class="-content-img" :src="dataInfo.face"/>
       </div>
     </div>
   </div>
@@ -35,6 +35,9 @@
     components: {TopBannerTem, NavTabUsTem, LabelTem, BreadcrumbTem},
     data() {
       return {
+        bannerInfo: '',
+        dataInfo: {},
+        dataAllList: [],
         dataList: [
           {
             title: '地址',
@@ -61,22 +64,40 @@
       }
     },
     mounted () {
-      this.getList()
+      this.getDictTypes()
     },
     methods: {
-      handleChange() {
-
-      },
-      sizePage () {
-
+      getDictTypes() {
+        this.$api.com.getDictTypes({
+          key: 'about_us_position'
+        }).then(res => {
+          this.dataAllList = res.data[0].list
+          this.getList()
+        })
       },
       getList() {
         this.$api.com.articleList({
-          position: '3',
+          position: '',
           type: '6'
         }).then(res => {
-          this.dataList = res.data
+          let storageList = res.data
+          let bannerItem = []
 
+
+          storageList.forEach(item=>{
+            if (item.position === '0') {
+              bannerItem.push({
+                ...item,
+                face: `${this.$store.state.baseImgUrl}${item.face}`
+              })
+            } else if (item.position === '3') {
+              this.dataInfo = {
+                ...item,
+                face: `${this.$store.state.baseImgUrl}${item.face}`
+              }
+            }
+          })
+          this.bannerInfo = bannerItem.length ? bannerItem[0] : ''
         })
       },
     }

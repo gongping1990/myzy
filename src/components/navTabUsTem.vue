@@ -18,18 +18,18 @@
             title: '公司介绍',
             path: '/about'
           },
+          // {
+          //   id: '2',
+          //   title: '董事长寄语',
+          //   path: '/'
+          // },
           {
             id: '2',
-            title: '董事长寄语',
-            path: '/'
-          },
-          {
-            id: '3',
             title: '荣誉资质',
             path: '/honor'
           },
           {
-            id: '4',
+            id: '3',
             title: '联系我们',
             path: '/contact'
           }

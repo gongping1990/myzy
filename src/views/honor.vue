@@ -1,16 +1,15 @@
 <template>
   <div class="p-honor">
-    <top-banner-tem propDes="这个是测试文案1"></top-banner-tem>
+    <top-banner-tem :propData="bannerInfo"></top-banner-tem>
     <nav-tab-us-tem class="p-honor-nav"></nav-tab-us-tem>
     <div class="p-honor-wrap">
       <breadcrumb-tem class="p-honor-bread"></breadcrumb-tem>
       <div class="p-honor-content">
-        <div class="-item" v-for="(item, index) of dataList" :key="index">
-          <img class="-img" :src="item.imgUrl"/>
+        <div class="-item" v-for="(item, index) of dataOneList" :key="index">
+          <img class="-img" :src="item.face"/>
           <div class="-text">{{item.title}}</div>
         </div>
       </div>
-      <el-pagination background layout="prev, pager, next" :total="1" @size-change="sizePage"></el-pagination>
     </div>
   </div>
 </template>
@@ -27,49 +26,65 @@
     components: {TopBannerTem, NavTabUsTem, LabelTem, BreadcrumbTem},
     data() {
       return {
-        dataList: [
-          {
-            imgUrl: '',
-            title: '高新技术企业证书',
-          },
-          {
-            imgUrl: '',
-            title: '高新技术企业证书',
-          },
-          {
-            imgUrl: '',
-            title: '高新技术企业证书',
-          },
-          {
-            imgUrl: '',
-            title: '高新技术企业证书',
-          },
-          {
-            imgUrl: '',
-            title: '高新技术企业证书',
-          }
-        ]
+        bannerInfo: '',
+        dataList: [],
+        dataAllList: [],
+        dataOneList: []
       }
     },
     mounted () {
-      this.getList()
+      this.getDictTypes()
     },
     methods: {
-      handleChange() {
-
-      },
-      sizePage () {
-
+      getDictTypes() {
+        this.$api.com.getDictTypes({
+          key: 'about_us_position'
+        }).then(res => {
+          this.dataAllList = res.data[0].list
+          this.getList()
+        })
       },
       getList() {
         this.$api.com.articleList({
-          position: '2',
+          position: '',
           type: '6'
         }).then(res => {
-          this.dataList = res.data
+          let storageList = res.data
+          let bannerItem = []
+          this.dataOneList = []
+          this.dataList = JSON.parse(JSON.stringify(this.dataAllList))
+          this.dataList.splice(0, 1)
+          this.dataList.forEach(list => {
+            storageList.forEach(item => {
+              if (list.dictValue === item.position) {
+                switch (+item.position) {
+                  case 1:
+                    break
+                  case 2:
+                    this.dataOneList.push({
+                      title: item.title,
+                      content: item.content,
+                      face: `${this.$store.state.baseImgUrl}${item.face}`
+                    })
+                    break
+                  case 3:
+                    break
+                }
+              }
+            })
+          })
 
+          storageList.forEach(item=>{
+            if (item.position === '0') {
+              bannerItem.push({
+                ...item,
+                face: `${this.$store.state.baseImgUrl}${item.face}`
+              })
+            }
+          })
+          this.bannerInfo = bannerItem.length ? bannerItem[0] : ''
         })
-      },
+      }
     }
   }
 </script>
