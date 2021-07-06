@@ -9,15 +9,13 @@
         <div class="-content-wrap">
           <div class="-content-item" v-for="(item,index) of dataList" :key="index">
             <p>
-              <svg class="icon" aria-hidden="true">
-                <use :xlink:href="item.icon"></use>
-              </svg>
+              <img class="icon" :src="item.face"/>
               {{item.title}}
             </p>
-            <p class="-text">{{item.address}}</p>
+            <p class="-text" v-html="item.content"></p>
           </div>
         </div>
-        <img class="-content-img" :src="dataInfo.face"/>
+        <img class="-content-img" :src="addressImg"/>
       </div>
     </div>
   </div>
@@ -36,31 +34,9 @@
     data() {
       return {
         bannerInfo: '',
-        dataInfo: {},
+        addressImg: '',
         dataAllList: [],
-        dataList: [
-          {
-            title: '地址',
-            address: '成都市高新区环球中心',
-            icon: '#icon-dizhi-1'
-          },
-          {
-            title: '电话',
-            address: '028-8888 8888',
-            icon: '#icon-zuoji'
-          },
-          {
-            title: '传真',
-            address: '+86 571586943',
-            icon: '#icon-fax-fill-copy'
-          },
-          {
-            title: '邮箱',
-            address: 'xxx@xxx.com',
-            icon: '#icon-tubiao209'
-          },
-
-        ]
+        dataList: []
       }
     },
     mounted () {
@@ -83,7 +59,6 @@
           let storageList = res.data
           let bannerItem = []
 
-
           storageList.forEach(item=>{
             if (item.position === '0') {
               bannerItem.push({
@@ -91,10 +66,15 @@
                 face: `${this.$store.state.baseImgUrl}${item.face}`
               })
             } else if (item.position === '3') {
-              this.dataInfo = {
-                ...item,
-                face: `${this.$store.state.baseImgUrl}${item.face}`
+              if (item.title === '地图') {
+                this.addressImg = `${this.$store.state.baseImgUrl}${item.face}`
+              } else if (item.title !== '备案号') {
+                this.dataList.push ({
+                  ...item,
+                  face: `${this.$store.state.baseImgUrl}${item.face}`
+                })
               }
+
             }
           })
           this.bannerInfo = bannerItem.length ? bannerItem[0] : ''

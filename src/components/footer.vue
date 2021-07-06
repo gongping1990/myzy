@@ -18,15 +18,14 @@
           </div>
         </div>
         <div class="-right-down">
-          <p>公司地址：成都市武侯区武科南路二号1908室</p>
-          <p>联系电话：028-88888888888</p>
-          <p>公司邮箱：VVVVVVV@qq.com</p>
+          <div class="-right-down-item" v-for="(item,index) of companyList" :key="index">
+            <span>{{item.title}}:</span> <span class="-text" v-html="item.content"></span>
+          </div>
         </div>
       </div>
     </div>
-    <div class="p-footer-down">
-      <span class="-span1">@Copyrights 2016-2020 川宇置业有限公司</span>
-      <span> 蜀ICP备20012894号-1</span>
+    <div class="p-footer-down" v-html="keepInfo">
+
     </div>
   </div>
 </template>
@@ -37,12 +36,35 @@
     props: ['propList'],
     data () {
       return {
-        dataList: this.propList
+        dataList: this.propList,
+        keepInfo: '',
+        companyList: []
       }
+    },
+    mounted() {
+      this.getList()
     },
     methods: {
       jumpUrl (data) {
         this.$router.push(`${data.path}?id=${data.id}`)
+      },
+      getList() {
+        this.$api.com.articleList({
+          position: '',
+          type: '6'
+        }).then(res => {
+          let storageList = res.data
+          storageList.forEach(item=>{
+             if (item.position === '3' && item.title !== '地图' && item.title !== '备案号') {
+               this.companyList.push ({
+                 ...item,
+                 face: `${this.$store.state.baseImgUrl}${item.face}`
+               })
+            } else if (item.title === '备案号') {
+               this.keepInfo = item.content
+             }
+          })
+        })
       }
     }
   }
@@ -122,8 +144,13 @@
       .-right-down {
         text-align: left;
 
-        p {
+        &-item {
+          display: flex;
           margin-bottom: 8px;
+
+          .-text {
+            margin-left: 10px;
+          }
         }
       }
     }
@@ -132,9 +159,6 @@
       padding-bottom: 59px;
       font-size: 12px;
       color: #ffffff;
-      .-span1 {
-        color: #A5A5A5;
-      }
     }
   }
 </style>
