@@ -1,2 +1,2 @@
 export let baseUrl =
-  process.env.NODE_ENV == "development" ? "http://api.telllead.com" : "http://api.telllead.com"
+  process.env.NODE_ENV == "development" ? "https://api.telllead.com" : "https://api.telllead.com"

@@ -2,22 +2,11 @@
   <div class="p-base">
     <div class="p-base-header">
       <div class="-header-top">
-        <div class="-header-top-icon">
-          <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-weixin"></use>
-          </svg>
-          <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-qq"></use>
-          </svg>
-          <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-weibo"></use>
-          </svg>
-        </div>
         <div class="-header-top-tel">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-zuoji"></use>
           </svg>
-          服务热线：400-500-900
+          服务热线：028-87799029
         </div>
       </div>
       <div class="-header-down">

@@ -1,7 +1,7 @@
 <template>
   <div class="p-home">
     <div class="p-home-swiper">
-      <el-carousel :autoplay="false">
+      <el-carousel>
         <el-carousel-item v-for="(item,index) in bannerList" :key="index">
           <img class="-img" :src="item.img"/>
         </el-carousel-item>
